@@ -18,6 +18,10 @@ foreach ($item in $array)
     write-host $item -ForegroundColor yellow 
 }
 
+################
+#  HASHTABLES  #
+################
+
 #HASHTABLES: @{}
 $hashtable = @{"Item1" = "Value1"; "Item2" = "Value2"}
 
@@ -34,6 +38,15 @@ $hashtable.item1 = "VALUE1.0"
 
 #remove a key/value
 $hashtable.remove("Item2")
+
+#check if a hashtable key exists:
+if($hashtable.ContainsKey('Item5')) {write-host "We've got it!"}
+
+#rarely used, but check if a value exists:
+#note, it's case sensitive
+#note, it won't tell you what key has the value, only that the value exists in the hashtable
+if($hashtable.ContainsValue(("Value3")) {write-host "The value we were seeking was found!"}
+
 
 ###########################################################
 #hashtables sometimes act like an object, but not always  #
@@ -72,3 +85,23 @@ write-host "Server is $($settings.server)"
 write-host "Owner is $($settings.Owner)"
 write-host "IP is $($settings.IP)"
   
+
+####################################
+# looping through a hashtable      #
+# (Note this is a readonly action) #
+####################################
+foreach ($entry in $settings.getEnumerator())
+{
+    write-host "key: $($entry.key), Value: $($entry.value)"
+}
+
+#another way
+foreach ($key in $settings.keys)
+{
+    write-host "key: $key, Value: $($settings[$key])"
+}
+
+#and another way:
+$settings.getEnumerator() | foreach {
+    write-host "key: $($_.key), Value: $($_.value)"
+}
