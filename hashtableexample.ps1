@@ -30,7 +30,7 @@ Write-host "$($hastable.item1)" -foregroundcolor yellow
 Write-host "$($hastable['item1'])" -foregroundcolor yellow 
 
 #add an item to a hashtable:
-$hashtable.add("item3" = "value3")
+#$hashtable.add("item3" = "value3")
 $hashtable.item4 = "Value4"
 
 #update an existing value
@@ -45,7 +45,7 @@ if($hashtable.ContainsKey('Item5')) {write-host "We've got it!"}
 #rarely used, but check if a value exists:
 #note, it's case sensitive
 #note, it won't tell you what key has the value, only that the value exists in the hashtable
-if($hashtable.ContainsValue(("Value3")) {write-host "The value we were seeking was found!"}
+if($hashtable.ContainsValue(("Value3"))) {write-host "The value we were seeking was found!"}
 
 
 ###########################################################
@@ -90,18 +90,21 @@ write-host "IP is $($settings.IP)"
 # looping through a hashtable      #
 # (Note this is a readonly action) #
 ####################################
+write-host "Example 1: use getEnumerator" -foregroundcolor green
 foreach ($entry in $settings.getEnumerator())
 {
-    write-host "key: $($entry.key), Value: $($entry.value)"
+    write-host "key: $($entry.key), Value: $($entry.value)" -foregroundcolor green
 }
 
 #another way
+write-host "Example 2: use the .keys property" -foregroundcolor yellow
 foreach ($key in $settings.keys)
 {
-    write-host "key: $key, Value: $($settings[$key])"
+    write-host "key: $key, Value: $($settings[$key])"  -foregroundcolor yellow
 }
 
 #and another way:
+write-host "Example 3: use the enumerator in a pipeline" -ForegroundColor magenta
 $settings.getEnumerator() | foreach {
-    write-host "key: $($_.key), Value: $($_.value)"
+    write-host "key: $($_.key), Value: $($_.value)"  -ForegroundColor magenta
 }
